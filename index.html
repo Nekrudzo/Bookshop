@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshop</title>
+    <link rel="stylesheet" type="text/css" href="dist/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>Bookshop</h1>
+        </div>
+        <div>
+            <nav class="header__nav">
+                <ul id="nav" class="header__list">
+                    <li><a class="active" href="#">books</a></li>
+                    <li><a href="#">audiobooks</a></li>
+                    <li><a href="#">Stationery & gifts</a></li>
+                    <li><a href="#">blog</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header__buttons">
+            <button><img src="../Bookshop/src/images/logos/user.png" alt="UserLogo"></button>
+            <button><img src="../Bookshop/src/images/logos/search.png" alt="SearchLogo"></button>
+            <button>
+                <img src="../Bookshop/src/images/logos/shop bag.png" alt="ShopBackLogo">
+                <span id="carts-count" class="cart-btn__count cart-btn__count_empty">
+                    <div class="circle"></div>
+                </span>
+            </button>
+            
+        </div>
+    </header>
+    <main class="mainInfo">
+        <div class="slider">
+            <div class="slide">
+                <img id="slide-img-desktop" src="../Bookshop/src/images/slider/BlackFridaySale.png" alt="BlackFridaySale">
+            </div>
+        </div>
+        <div class="slider__nav">
+            <div id="point-list" class="slider__nav-points">
+                <button class="slider__button-nav" aria-label="selected slide">
+                    <img src="../Bookshop/src/images/icons/icon_point_active.svg" alt="icon_point_active">
+                </button>
+                <button class="slider__button-nav" aria-label="next slide">
+                    <img src="../Bookshop/src/images/icons/icon_point_no-active.svg" alt="icon_point_no-active">
+                </button>
+                <button class="slider__button-nav" aria-label="next slide">
+                    <img src="../Bookshop/src/images/icons/icon_point_no-active.svg" alt="icon_point_no-active">
+                </button>
+            </div>
+        </div>
+        <section class="banner">
+            <div class="banner__promo">
+                <a href="#" class="link_purple">
+                    <p>Change<br />old book<br />on new<br /><img src="../Bookshop/src/images/arrow.png" height="12px" width="55px"></p>
+                </a>
+            </div>
+            <div class="banner__promo">
+                <a href="#" class="link_pink">
+                    <p>top<br />100<br />books<br />2022<br /><img src="../Bookshop/src/images/arrow.png" height="12px" width="55px"></p>
+                </a>
+        </section>
+        <section class="categories">
+            <div class="categories__genres">
+                <ul id="nav" class="categories__genres--list">
+                    <li><a href="#" class="categories__item categories__item_selected">Architecture</a></li>
+                    <li><a href="#" class="categories__item">Art & Fashion</a></li>
+                    <li><a href="#" class="categories__item">Biography</a></li>
+                    <li><a href="#" class="categories__item">Business</a></li>
+                    <li><a href="#" class="categories__item">Crafts & Hobbies</a></li>
+                    <li><a href="#" class="categories__item">Drama</a></li>
+                    <li><a href="#" class="categories__item">Fiction</a></li>
+                    <li><a href="#" class="categories__item">Food & Drink</a></li>
+                    <li><a href="#" class="categories__item">Health & Wellbeing</a></li>
+                    <li><a href="#" class="categories__item">History & Politics</a></li>
+                    <li><a href="#" class="categories__item">Humor</a></li>
+                    <li><a href="#" class="categories__item">Poetry</a></li>
+                    <li><a href="#" class="categories__item">Psychology</a></li>
+                    <li><a href="#" class="categories__item">Science</a></li>
+                    <li><a href="#" class="categories__item">Technology</a></li>
+                    <li><a href="#" class="categories__item">Travel & Maps</a></li>
+                </ul>
+            </div>
+        </section>
+        <section class="book-list">
+            <div id="books-list" class="book-list__card">
+
+            </div>
+            <button id="btn-load" class="btn btn_load">Load more</button>
+        </section>
+    </main>
+    <script src="dist/main.js"></script>
+</body>
+</html>
