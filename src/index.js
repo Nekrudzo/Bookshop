@@ -3,9 +3,6 @@ import "./scss/base.css";
 const pointList = document.getElementById("point-list");
 const slideImgDesktop = document.getElementById("slide-img-desktop");
 const navLinks = document.querySelectorAll(".header__list a");
-const booksLinks = document.querySelectorAll("#nav a");
-const loadButton = document.getElementById("btn-load");
-const categories = document.querySelectorAll(".categories__item");
 
 // Выделение активной ссылки
 
