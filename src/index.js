@@ -1,4 +1,4 @@
-import "./base.css";
+import "./scss/base.css";
 
 const pointList = document.getElementById("point-list");
 const slideImgDesktop = document.getElementById("slide-img-desktop");
@@ -77,73 +77,77 @@ setInterval(() => {
 }, 5000);
 
 // Books cards
+const booksList = document.getElementById("books-list");
+const loadMoreButton = document.getElementById("btn-load");
 
-const API_URL =
-  "https://www.googleapis.com/books/v1/volumes?q=&key=<AIzaSyBVwpoPFvi8crj5_BlFfh3QR7nMVFKyH1U>&printType=books&startIndex=0&maxResults=6&langRestrict=en"; // Пример запроса
+let startIndex = 0; // Начальный индекс
+const resultsPerLoad = 6; // Количество книг, загружаемых при каждом нажатии кнопки
+
+const placeholderImage = "https://via.placeholder.com/150";
 
 async function fetchBooks() {
-  try {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    displayBooks(data.items);
-  } catch (error) {
-    console.error("Ошибка при получении данных:", error);
-  }
+  const response = await fetch(
+    `https://www.googleapis.com/books/v1/volumes?q=subject:programming&startIndex=${startIndex}&maxResults=${resultsPerLoad}`
+  );
+  const data = await response.json();
+  return data.items || [];
 }
 
-function displayBooks(books) {
-  const bookContainer = document.getElementById("books-list");
-  bookContainer.innerHTML = ""; // Очистка контейнера перед добавлением новых карточек
+function createBookCard(book) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const title = book.volumeInfo.title;
+  const authors = book.volumeInfo.authors
+    ? book.volumeInfo.authors.join(", ")
+    : "Не указано";
+  const cover = book.volumeInfo.imageLinks
+    ? book.volumeInfo.imageLinks.thumbnail
+    : placeholderImage;
+  const rating = book.volumeInfo.averageRating;
+  const ratingsCount = book.volumeInfo.ratingsCount;
+  const description = book.volumeInfo.description || "Нет описания";
+  const price =
+    book.saleInfo.saleability === "FOR_SALE" && book.saleInfo.listPrice
+      ? `${book.saleInfo.listPrice.amount} ${book.saleInfo.listPrice.currencyCode}`
+      : "";
+
+  card.innerHTML = `
+        <img src="${cover}" alt="${title}" />
+        <h3>${title}</h3>
+        <p>${authors}</p>
+        ${
+          rating
+            ? `<p class="rating">${"★".repeat(Math.round(rating))} (${
+                ratingsCount || 0
+              })</p>`
+            : ""
+        }
+        <p class="description">${description}</p>
+        ${price ? `<p class="price">${price}</p>` : ""}
+    `;
+  return card;
+}
+
+async function loadBooks() {
+  const books = await fetchBooks();
+
+  // Если книг нет, скрываем кнопку "Load More"
+  if (books.length === 0) {
+    loadMoreButton.style.display = "none";
+    return;
+  }
 
   books.forEach((book) => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const cover = book.volumeInfo.imageLinks
-      ? book.volumeInfo.imageLinks.thumbnail
-      : "https://via.placeholder.com/150";
-    const authors = book.volumeInfo.authors
-      ? book.volumeInfo.authors.join(", ")
-      : "Неизвестный автор";
-    const title = book.volumeInfo.title || "Без названия";
-    const rating = book.volumeInfo.averageRating
-      ? `${book.volumeInfo.averageRating} ${getStars(
-          book.volumeInfo.averageRating
-        )} (${book.volumeInfo.ratingsCount || 0} отзывов)`
-      : "";
-    const description = book.volumeInfo.description
-      ? truncateDescription(book.volumeInfo.description)
-      : "Описание отсутствует";
-    const price =
-      book.saleInfo.saleability === "FOR_SALE"
-        ? `${book.saleInfo.listPrice.amount} ${book.saleInfo.listPrice.currencyCode}`
-        : null;
-
-    card.innerHTML = `
-            <img src="${cover}" alt="${title}">
-            <h3>${title}</h3>
-            <p>${authors}</p>
-            ${rating ? `<p class="stars">${rating}</p>` : ""}
-            <p class="description">${description}</p>
-            ${price ? `<p>${price}</p>` : ""}
-        `;
-
-    bookContainer.appendChild(card);
+    const card = createBookCard(book);
+    booksList.appendChild(card);
   });
+
+  startIndex += resultsPerLoad; // Увеличиваем индекс для следующей загрузки
 }
 
-function getStars(rating) {
-  const fullStars = "★".repeat(Math.floor(rating));
-  const emptyStars = "★".repeat(5 - Math.floor(rating));
-  return fullStars + emptyStars;
-}
+// Обработчик события для кнопки "Load More"
+loadMoreButton.addEventListener("click", loadBooks);
 
-function truncateDescription(description) {
-  const words = description.split(" ");
-  if (words.length > 30) {
-    return words.slice(0, 30).join(" ") + "...";
-  }
-  return description;
-}
-
-fetchBooks();
+// Изначальная загрузка книг при старте
+loadBooks();
