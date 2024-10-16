@@ -260,11 +260,11 @@ main{
 // Карточки
 
 .book-list {
-    position: absolute;
-    margin: 20px;
-    top: 885px;
-    left: 356px;
+    margin-top: 885px;
     width: 1084px;
+    position: absolute;
+    left: 356px;
+    z-index: 100;
 }
 
 .book-list__card {
@@ -273,14 +273,16 @@ main{
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     width: 100%;
-    border: 1px 0px 0px 0px;
     overflow-y: inherit;
 }
 
 .card {
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    display: flex;
+    font-family: Open Sans;
+    color: rgba(92, 106, 121, 1);
+    font-size: 10px;
+    line-height: 13.62px;
+    text-align: left;
     padding: 0px;
     text-align: center;
     width: 424px;
@@ -312,6 +314,8 @@ main{
 }
 
 .book-list button {
+    position: absolute;
+    left: 321px;
     width: 176px;
     height: 45px;
     border: 1px 0px 0px 0px;

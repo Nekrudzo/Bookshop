@@ -18,10 +18,21 @@ navLinks.forEach((link) => {
 
 // Выделение активной категории
 
-booksLinks.forEach((link) => {
-  link.addEventListener("click", function () {
-    booksLinks.forEach((link) => link.classList.remove("active"));
-    this.classList.add("active");
+document.addEventListener("DOMContentLoaded", function () {
+  // Находим все элементы категории
+  const categoryItems = document.querySelectorAll(".categories__item");
+
+  // Устанавливаем обработчик события клика для каждого элемента
+  categoryItems.forEach((item) => {
+    item.addEventListener("click", function (event) {
+      event.preventDefault(); // Предотвращаем переход по ссылке
+
+      // Удаляем класс активной категории от всех элементов
+      categoryItems.forEach((el) => el.classList.remove("active"));
+
+      // Добавляем класс активной категории к текущему элементу
+      this.classList.add("active");
+    });
   });
 });
 
@@ -82,12 +93,13 @@ const loadMoreButton = document.getElementById("btn-load");
 
 let startIndex = 0; // Начальный индекс
 const resultsPerLoad = 6; // Количество книг, загружаемых при каждом нажатии кнопки
+let currentCategory = ""; // Текущая выбранная категория
 
 const placeholderImage = "https://via.placeholder.com/150";
 
-async function fetchBooks() {
+async function fetchBooks(category) {
   const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=subject:programming&startIndex=${startIndex}&maxResults=${resultsPerLoad}`
+    `https://www.googleapis.com/books/v1/volumes?q=subject:${category}&startIndex=${startIndex}&maxResults=${resultsPerLoad}`
   );
   const data = await response.json();
   return data.items || [];
@@ -130,7 +142,7 @@ function createBookCard(book) {
 }
 
 async function loadBooks() {
-  const books = await fetchBooks();
+  const books = await fetchBooks(currentCategory);
 
   // Если книг нет, скрываем кнопку "Load More"
   if (books.length === 0) {
@@ -149,5 +161,23 @@ async function loadBooks() {
 // Обработчик события для кнопки "Load More"
 loadMoreButton.addEventListener("click", loadBooks);
 
+// Обработчик событий для кнопок категорий
+document.querySelectorAll(".categories__item").forEach((item) => {
+  item.addEventListener("click", function (e) {
+    e.preventDefault(); // Отменяем стандартное поведение ссылки
+    currentCategory = this.dataset.category; // Получаем категорию из атрибута data-*
+    booksList.innerHTML = ""; // Очищаем список книг
+    startIndex = 0; // Сброс индекса
+    loadBooks(); // Загружаем книги для выбранной категории
+
+    // Обновляем активный элемент навигации
+    document
+      .querySelector(".categories__item.active")
+      .classList.remove("active");
+    this.classList.add("active");
+  });
+});
+
 // Изначальная загрузка книг при старте
+currentCategory = "architecture"; // Устанавливаем начальную категорию
 loadBooks();
