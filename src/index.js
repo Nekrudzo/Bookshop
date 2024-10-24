@@ -123,8 +123,9 @@ function createBookCard(book) {
 
   card.innerHTML = `
         <img src="${cover}" alt="${title}" />
-        <h3>${title}</h3>
+        <div class="card-content">
         <p>${authors}</p>
+        <h3>${title}</h3>
         ${
           rating
             ? `<p class="rating">${"★".repeat(Math.round(rating))} (${
@@ -134,6 +135,8 @@ function createBookCard(book) {
         }
         <p class="description">${description}</p>
         ${price ? `<p class="price">${price}</p>` : ""}
+        <button class="buy">Buy now</button>
+        </div>
     `;
   return card;
 }
@@ -178,3 +181,42 @@ document.querySelectorAll(".categories__item").forEach((item) => {
 // Изначальная загрузка книг при старте
 currentCategory = "architecture"; // Устанавливаем начальную категорию
 loadBooks();
+
+//Добавление книг в корзину
+
+const cartCountDisplay = document.querySelector(".circle");
+let cartCount = 0;
+const cartItems = {};
+
+// Функция для обработки нажатия на кнопку "Buy now"
+function toggleCart(event) {
+  const button = event.target.closest(".buy");
+  if (!button) return;
+
+  const bookCard = button.closest(".book-list__card");
+  const title = bookCard.getAttribute("data-title");
+
+  if (cartItems[title]) {
+    // Удаляем один экземпляр товара из корзины
+    cartItems[title]--;
+    button.classList.remove("in-cart");
+    button.textContent = "Buy now";
+
+    // Если количество стало 0, удаляем книгу из корзины
+    if (cartItems[title] <= 0) {
+      delete cartItems[title];
+    }
+    cartCount--;
+  } else {
+    // Добавляем товар в корзину
+    cartItems[title] = (cartItems[title] || 0) + 1;
+    button.classList.add("in-cart");
+    button.textContent = "In the cart";
+    cartCount++;
+  }
+
+  // Обновляем отображение количества товаров в корзине
+  cartCountDisplay.textContent = cartCount > 0 ? cartCount : 0;
+}
+
+document.querySelector(".book-list").addEventListener("click", toggleCart);

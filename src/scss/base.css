@@ -85,20 +85,19 @@ ul {
   padding: 0; }
 
 .circle {
-  width: 100px;
-  height: 100px;
+  width: 13px;
+  height: 13px;
   background-color: red;
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: relative;
   margin: 0px;
-  width: 13px;
-  height: 13px;
-  left: 1265px;
-  top: 61px; }
+  left: 5px;
+  top: -10px;
+  font-size: 12px; }
 
 main {
   padding-top: 100px; }
@@ -212,7 +211,6 @@ main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   width: 100%;
   overflow-y: inherit; }
 
@@ -228,11 +226,24 @@ main {
   width: 424px;
   height: 300px;
   margin-right: 76px;
-  margin-bottom: 96px; }
+  margin-bottom: 96px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s; }
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  /* добавим немного отступа для контента */
+  flex-grow: 1;
+  /* чтобы контент занимал оставшееся пространство */ }
 
 .card img {
-  max-width: 100%;
-  height: auto; }
+  object-fit: cover;
+  width: 212px;
+  height: 300px; }
 
 .card .rating {
   color: gold; }
@@ -248,15 +259,21 @@ main {
   /* ограничиваем до 3-х строк */ }
 
 .card .price {
-  font-weight: bold; }
+  font-weight: bold;
+  margin: 10px 0; }
 
 .book-list button {
-  position: absolute;
-  left: 321px;
   width: 176px;
   height: 45px;
+  margin: 20px auto;
   border: 1px 0px 0px 0px;
-  color: #4c3db2;
-  border: 1px solid #4c3db2; }
+  background-color: white;
+  border: 1px solid #4c3db2;
+  cursor: pointer;
+  transition: background-color 0.3s; }
+
+.btn--btn_load {
+  position: absolute;
+  left: 361px; }
 
 /*# sourceMappingURL=base.css.map */
