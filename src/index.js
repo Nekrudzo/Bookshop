@@ -135,7 +135,7 @@ function createBookCard(book) {
         }
         <p class="description">${description}</p>
         ${price ? `<p class="price">${price}</p>` : ""}
-        <button class="buy">Buy now</button>
+        <button class="buy" id="buy" data-in-cart="false">Buy now</button>
         </div>
     `;
   return card;
@@ -184,39 +184,34 @@ loadBooks();
 
 //Добавление книг в корзину
 
-const cartCountDisplay = document.querySelector(".circle");
 let cartCount = 0;
-const cartItems = {};
 
-// Функция для обработки нажатия на кнопку "Buy now"
-function toggleCart(event) {
-  const button = event.target.closest(".buy");
-  if (!button) return;
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("buy")) {
+    const button = event.target;
+    const inCart = button.getAttribute("data-in-cart") === "true";
 
-  const bookCard = button.closest(".book-list__card");
-  const title = bookCard.getAttribute("data-title");
-
-  if (cartItems[title]) {
-    // Удаляем один экземпляр товара из корзины
-    cartItems[title]--;
-    button.classList.remove("in-cart");
-    button.textContent = "Buy now";
-
-    // Если количество стало 0, удаляем книгу из корзины
-    if (cartItems[title] <= 0) {
-      delete cartItems[title];
+    if (inCart) {
+      button.innerText = "Buy now";
+      button.setAttribute("data-in-cart", "false");
+      cartCount -= 1; // Уменьшаем количество в корзине
+    } else {
+      button.innerText = "In the list";
+      button.setAttribute("data-in-cart", "true");
+      cartCount += 1; // Увеличиваем количество в корзине
     }
-    cartCount--;
-  } else {
-    // Добавляем товар в корзину
-    cartItems[title] = (cartItems[title] || 0) + 1;
-    button.classList.add("in-cart");
-    button.textContent = "In the cart";
-    cartCount++;
+
+    updateCartCount();
   }
+});
 
-  // Обновляем отображение количества товаров в корзине
-  cartCountDisplay.textContent = cartCount > 0 ? cartCount : 0;
+// Обновление количества товара в корзине
+function updateCartCount() {
+  const cartCountElement = document.getElementById("carts-count");
+  if (cartCount > 0) {
+    cartCountElement.innerText = cartCount;
+  } else {
+    cartCountElement.innerText = "";
+    cartCountElement.classList.add("circle");
+  }
 }
-
-document.querySelector(".book-list").addEventListener("click", toggleCart);

@@ -1,6 +1,18 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap);
 @import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
 @charset "UTF-8";
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    height: 1%; }
+
+  .header__nav {
+    order: 1;
+    margin: 0px;
+    flex-basis: 100%; }
+
+  .header__buttons {
+    margin-left: 0px; } }
 html, body {
   background-color: white;
   display: flex;
@@ -12,10 +24,8 @@ html, body {
   width: 100%; }
 
 header {
-  width: 1440px;
-  height: 116px;
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   position: fixed;
   background-color: white;
   padding: 0px;
@@ -25,13 +35,13 @@ header {
   align-items: center;
   margin: 0 auto;
   width: 100%;
+  height: 116px;
   z-index: 1000; }
 
 .logo {
   margin-left: 160px;
   width: 128px;
-  height: 29px;
-  margin-right: 200px; }
+  height: 29px; }
 
 .logo h1 {
   margin: 0;
@@ -68,15 +78,14 @@ ul {
   color: #1c2a39;
   font-size: 16px;
   font-weight: 800;
-  line-height: 19.5px; }
+  line-height: 20px; }
 
 .header__buttons {
   display: flex;
-  width: 120.84px;
+  width: 121px;
   height: 17px;
-  border: 1px 0px 0px 0px;
-  gap: 40px;
-  margin-left: 300px; }
+  margin-right: 300px;
+  gap: 40px; }
 
 .header__buttons button {
   border: none;
@@ -91,7 +100,6 @@ ul {
   color: white;
   border-radius: 50%;
   display: flex;
-  align-items: center;
   justify-content: center;
   position: relative;
   margin: 0px;
@@ -100,31 +108,29 @@ ul {
   font-size: 12px; }
 
 main {
+  width: 100%;
+  height: 100%;
   padding-top: 100px; }
 
 .slider {
   display: flex;
-  position: absolute;
   justify-content: left;
-  top: 116px;
-  left: 160px;
+  margin-left: 160px;
   object-fit: cover; }
 
 .slide {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%; }
 
 .slider__nav {
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: relative;
   width: 56px;
   height: 12px;
-  top: 835px;
-  left: 692px;
-  gap: 0px;
-  opacity: 0px; }
+  margin-left: 692px;
+  margin-top: 17px; }
 
 .slider__nav-points {
   gap: 10px;
@@ -139,9 +145,10 @@ main {
   cursor: pointer; }
 
 .banner__promo {
+  position: relative;
   font-family: 'Montserrat';
   font-size: 18px;
-  line-height: 21.94px; }
+  line-height: 22px; }
 
 .banner__promo a {
   display: flex;
@@ -157,34 +164,31 @@ main {
   font-weight: 700; }
 
 .banner__promo .link_purple {
-  position: absolute;
   background-color: #9e98dc;
   width: 149px;
   height: 204px;
-  top: 195px;
-  left: 1217px; }
+  margin-top: -685px;
+  margin-left: 1217px;
+  z-index: 1; }
 
 .banner__promo .link_pink {
-  position: absolute;
   background-color: #ff8fe6;
   width: 137px;
   height: 273px;
-  top: 475px;
-  left: 1303px; }
+  margin-top: 76px;
+  margin-left: 1303px; }
 
 .categories {
   display: flex;
-  position: absolute;
   background: #efeef6;
-  left: 0px;
   width: 416px;
   height: 710px;
-  top: 952px;
+  margin-top: 305px;
   text-align: left;
   font-family: Montserrat;
   font-size: 12px;
   font-weight: 500;
-  line-height: 14.63px;
+  line-height: 15px;
   line-height: 38px;
   text-transform: capitalize; }
 
@@ -201,17 +205,15 @@ main {
   cursor: pointer; }
 
 .book-list {
-  margin-top: 885px;
+  margin-top: -664px;
+  margin-left: 356px;
   width: 1084px;
-  position: absolute;
-  left: 356px;
   z-index: 100; }
 
 .book-list__card {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
   overflow-y: inherit; }
 
 .card {
@@ -219,7 +221,7 @@ main {
   font-family: Open Sans;
   color: #5c6a79;
   font-size: 10px;
-  line-height: 13.62px;
+  line-height: 14px;
   text-align: left;
   padding: 0px;
   text-align: center;
@@ -265,7 +267,6 @@ main {
 .book-list button {
   width: 176px;
   height: 45px;
-  margin: 20px auto;
   border: 1px 0px 0px 0px;
   background-color: white;
   border: 1px solid #4c3db2;
@@ -273,6 +274,5 @@ main {
   transition: background-color 0.3s; }
 
 .btn--btn_load {
-  position: absolute;
-  left: 361px; }
+  margin-left: 385px; }
 

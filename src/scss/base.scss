@@ -2,6 +2,23 @@
 
 @import "_variables";
 
+@media(max-width: 768px) {
+    header{
+      flex-wrap: wrap;
+      height: 1%;
+    }
+
+    .header__nav{
+        order: 1;
+        margin: 0px;
+        flex-basis: 100%;    
+    }
+
+    .header__buttons{
+        margin-left: 0px;
+    }
+
+}
 
 html, body {
     background-color: rgba(255, 255, 255, 1);
@@ -15,10 +32,8 @@ html, body {
 }
 
 header {
-    width: 1440px;
-    height: 116px;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     position: fixed;
     background-color: rgba(255, 255, 255, 1);
     padding: 0px;
@@ -28,6 +43,7 @@ header {
     align-items: center;
     margin: 0 auto;
     width: 100%;
+    height: 116px;
     z-index: 1000;
 }
 
@@ -39,7 +55,6 @@ header {
     margin-left: 160px;
     width: 128px;
     height: 29px;
-    margin-right: 200px;
 }
 
 .logo h1 {
@@ -85,18 +100,17 @@ ul {
     color: rgba(28, 42, 57, 1);
     font-size: 16px;
     font-weight: 800;
-    line-height: 19.5px;
+    line-height: 20px;
 }
 
 // Кнопки
 
 .header__buttons {
     display: flex;
-    width: 120.84px;
+    width: 121px;
     height: 17px;
-    border: 1px 0px 0px 0px;
+    margin-right: 300px;
     gap: 40px;
-    margin-left: 300px;
 }
 
 .header__buttons button {
@@ -113,7 +127,6 @@ ul {
     color: white;
     border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
     position: relative;
     margin: 0px;
@@ -126,6 +139,8 @@ ul {
 // main
 
 main{
+    width: 100%;
+    height: 100%;
     padding-top: 100px;
 }
 
@@ -135,15 +150,13 @@ main{
 
 .slider {
     display: flex;
-    position: absolute;
     justify-content: left;
-    top: 116px;
-    left: 160px; 
+    margin-left: 160px; 
     object-fit: cover;
 }
 
 .slide {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -154,13 +167,11 @@ main{
 .slider__nav {
     display: flex;
     justify-content: center;
-    position: absolute;
+    position: relative;
     width: 56px;
     height: 12px;
-    top: 835px;
-    left: 692px;
-    gap: 0px;
-    opacity: 0px;
+    margin-left: 692px;
+    margin-top: 17px;
 
 }
 
@@ -174,18 +185,17 @@ main{
     background: none;
     border: 0;
     padding: 0;
-
     gap: 10px;
-
     cursor: pointer;
 }
 
 // Баннеры
 
 .banner__promo {
+    position: relative;
     font-family: 'Montserrat';
     font-size: 18px;
-    line-height: 21.94px;
+    line-height: 22px;
 }
 
 
@@ -206,40 +216,39 @@ main{
 }
 
 .banner__promo .link_purple{
-    position: absolute;
     background-color: rgba(158, 152, 220, 1);
     width: 149px;
     height: 204px;
-    top: 195px;
-    left: 1217px;
+    margin-top: -685px;
+    margin-left: 1217px;
+    z-index: 1;
 }
 
 .banner__promo .link_pink {
-    position: absolute;
     background-color: rgba(255, 143, 230, 1);
     width: 137px;
     height: 273px;
-    top: 475px;
-    left: 1303px;
+    margin-top: 76px;
+    margin-left: 1303px;
 }
 
 // Секция категорий
 
 .categories {
     display: flex;
-    position: absolute;
     background: #efeef6;
-    left: 0px;
     width: 416px;
     height: 710px;
-    top: 952px;
+    margin-top: 305px;
     text-align: left;
     font-family: Montserrat;
     font-size: 12px;
     font-weight: 500;
-    line-height: 14.63px;
+    line-height: 15px;
     line-height: 38px;
     text-transform: capitalize; 
+
+    
 }
   
 .categories__genres {
@@ -259,10 +268,9 @@ main{
 // Карточки
 
 .book-list {
-    margin-top: 885px;
+    margin-top: -664px;
+    margin-left: 356px;
     width: 1084px;
-    position: absolute;
-    left: 356px;
     z-index: 100;
 }
 
@@ -270,7 +278,6 @@ main{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
     overflow-y: inherit;
 }
 
@@ -279,7 +286,7 @@ main{
     font-family: Open Sans;
     color: rgba(92, 106, 121, 1);
     font-size: 10px;
-    line-height: 13.62px;
+    line-height: 14px;
     text-align: left;
     padding: 0px;
     text-align: center;
@@ -327,7 +334,6 @@ main{
 .book-list button {
     width: 176px;
     height: 45px;
-    margin: 20px auto;
     border: 1px 0px 0px 0px;
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid rgba(76, 61, 178, 1);
@@ -336,10 +342,5 @@ main{
 }
 
 .btn--btn_load {
-    position: absolute;
-    left: 361px;
-}
-
-.book-list__card button {
-
+    margin-left: 385px;
 }
