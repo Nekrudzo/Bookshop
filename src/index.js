@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // SLIDER
 
-// Image information for slider
 const info = [
   { slideImgDesktop: "../Bookshop/src/images/slider/BlackFridaySale.png" },
   { slideImgDesktop: "../Bookshop/src/images/slider/OurCozyBooks.png" },
@@ -43,7 +42,7 @@ const info = [
 ];
 
 // Current index for slides
-let currentIndex = 0; // Initialize currentIndex to 0
+let currentIndex = 0;
 
 // Function that sets the slide based on the index
 const setSlide = function (index) {
@@ -67,7 +66,7 @@ const onSliderClick = function (evt, list) {
   );
 
   if (index === -1 || index === currentIndex) {
-    return; // Skip if the clicked element is not valid or is already the current index
+    return;
   }
 
   setSlide(index);
@@ -80,7 +79,7 @@ pointList.addEventListener("click", function (evt) {
 
 // Automatic slide switching
 setInterval(() => {
-  const nextIndex = (currentIndex + 1) % info.length; // Get next index in a loop
+  const nextIndex = (currentIndex + 1) % info.length;
   setSlide(nextIndex);
 }, 5000);
 
@@ -89,10 +88,25 @@ const booksList = document.getElementById("books-list");
 const loadMoreButton = document.getElementById("btn-load");
 
 let startIndex = 0; // Начальный индекс
-const resultsPerLoad = 6; // Количество книг, загружаемых при каждом нажатии кнопки
+let resultsPerLoad = 6; // Количество книг, загружаемых при каждом нажатии кнопки
 let currentCategory = ""; // Текущая выбранная категория
 
-const placeholderImage = "https://via.placeholder.com/150";
+const placeholderImage = "../Bookshop/src/images/noImage.jpg";
+
+// Функция для изменения количества загружаемых книг в зависимости от ширины экрана
+function updateResultsPerLoad() {
+  if (window.innerWidth <= 768) {
+    resultsPerLoad = 3;
+  } else {
+    resultsPerLoad = 6;
+  }
+}
+
+// Добавляем обработчик события resize для отслеживания изменений размеров окна
+window.addEventListener("resize", updateResultsPerLoad);
+
+// Вызываем функцию сразу после загрузки страницы, чтобы установить правильное начальное значение
+updateResultsPerLoad();
 
 async function fetchBooks(category) {
   const response = await fetch(

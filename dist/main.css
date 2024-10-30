@@ -1,19 +1,61 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap);
 @import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
 @charset "UTF-8";
-@media (max-width: 768px) {
-  header {
-    flex-wrap: wrap;
-    height: 1%; }
+@media (max-width: 1023px) and (min-width: 768px) {
+  .banner__promo .link_purple {
+    margin-left: 980px !important;
+    margin-top: -500px !important; }
 
-  .header__nav {
-    order: 1;
-    margin: 0px;
-    flex-basis: 100%; }
+  .banner__promo .link_pink {
+    margin-left: 1053px !important; }
+
+  .slider__nav {
+    margin-left: 592px !important; }
+
+  .categories {
+    margin-top: 155px !important; } }
+@media (max-width: 768px) {
+  body {
+    justify-content: center; }
+
+  .header {
+    height: 80px !important;
+    flex-wrap: wrap !important;
+    flex-direction: column !important; }
+
+  .main {
+    display: flex !important;
+    justify-content: center !important; }
+
+  .slider {
+    margin-top: 50px !important;
+    margin-left: 0px !important;
+    width: 100% !important; }
+
+  .slider__nav {
+    margin-left: 10% !important; }
+
+  .logo {
+    margin-left: 0px !important; }
 
   .header__buttons {
-    margin-left: 0px; } }
-html, body {
+    margin-right: 0px !important; }
+
+  .banner__promo .link_purple {
+    margin-top: -0px !important;
+    margin-left: 35% !important; }
+
+  .banner__promo .link_pink {
+    margin-top: -23% !important;
+    margin-left: 65% !important; }
+
+  .categories {
+    margin-top: 0px !important; }
+
+  .btn--btn_load {
+    margin-left: 0px !important; } }
+html,
+body {
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -23,7 +65,7 @@ html, body {
   height: 100%;
   width: 100%; }
 
-header {
+.header {
   display: flex;
   justify-content: space-between;
   position: fixed;
@@ -35,9 +77,12 @@ header {
   align-items: center;
   margin: 0 auto;
   width: 100%;
+  max-width: 100vw;
   height: 116px;
   z-index: 1000; }
 
+/*Элементы header'a*/
+/*Лого*/
 .logo {
   margin-left: 160px;
   width: 128px;
@@ -50,9 +95,10 @@ header {
   line-height: 29.26px;
   text-align: left; }
 
+/* Навигация*/
 .header__list {
   display: flex;
-  gap: 40px; }
+  gap: 20px; }
 
 a {
   color: #5c6a79;
@@ -80,6 +126,7 @@ ul {
   font-weight: 800;
   line-height: 20px; }
 
+/* Кнопки*/
 .header__buttons {
   display: flex;
   width: 121px;
@@ -107,22 +154,31 @@ ul {
   top: -10px;
   font-size: 12px; }
 
+/*main*/
 main {
   width: 100%;
   height: 100%;
   padding-top: 100px; }
 
+/*slider*/
+/* Слайды*/
 .slider {
   display: flex;
   justify-content: left;
   margin-left: 160px;
-  object-fit: cover; }
+  object-fit: cover;
+  overflow: initial; }
 
 .slide {
   position: relative;
+  object-fit: cover; }
+
+.slide img {
+  object-fit: cover;
   width: 100%;
   height: 100%; }
 
+/* Кнопки под слайдером*/
 .slider__nav {
   display: flex;
   justify-content: center;
@@ -144,7 +200,9 @@ main {
   gap: 10px;
   cursor: pointer; }
 
+/* Баннеры*/
 .banner__promo {
+  height: 25%;
   position: relative;
   font-family: 'Montserrat';
   font-size: 18px;
@@ -178,6 +236,7 @@ main {
   margin-top: 76px;
   margin-left: 1303px; }
 
+/* Секция категорий*/
 .categories {
   display: flex;
   background: #efeef6;
@@ -204,6 +263,7 @@ main {
 .categories__genres--list {
   cursor: pointer; }
 
+/* Карточки*/
 .book-list {
   margin-top: -664px;
   margin-left: 356px;
