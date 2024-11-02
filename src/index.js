@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// SLIDER
+// Слайдер
 
 const info = [
   { slideImgDesktop: "../Bookshop/src/images/slider/BlackFridaySale.png" },
@@ -41,25 +41,21 @@ const info = [
   { slideImgDesktop: "../Bookshop/src/images/slider/TopTenBooks.png" },
 ];
 
-// Current index for slides
+// Текущий индекс для слайда
 let currentIndex = 0;
 
-// Function that sets the slide based on the index
 const setSlide = function (index) {
-  // Set the image source for the current slide
   slideImgDesktop.src = info[index].slideImgDesktop;
 
-  // Update the point navigation images
   pointList.children[currentIndex].children[0].src =
     "../Bookshop/src/images/icons/icon_point_no-active.svg";
   pointList.children[index].children[0].src =
     "../Bookshop/src/images/icons/icon_point_active.svg";
 
-  // Update currentIndex
   currentIndex = index;
 };
 
-// Event handler for slider click
+// Обработчик события для клика
 const onSliderClick = function (evt, list) {
   let index = Array.from(list.children).findIndex(
     (child) => child.children[0] === evt.target
@@ -72,18 +68,17 @@ const onSliderClick = function (evt, list) {
   setSlide(index);
 };
 
-// Setting up click event listener for points
 pointList.addEventListener("click", function (evt) {
   onSliderClick(evt, pointList);
 });
 
-// Automatic slide switching
+// Автоматический свитч слайда
 setInterval(() => {
   const nextIndex = (currentIndex + 1) % info.length;
   setSlide(nextIndex);
 }, 5000);
 
-// Books cards
+// Карточки книг
 const booksList = document.getElementById("books-list");
 const loadMoreButton = document.getElementById("btn-load");
 
@@ -109,8 +104,9 @@ window.addEventListener("resize", updateResultsPerLoad);
 updateResultsPerLoad();
 
 async function fetchBooks(category) {
+  const apiKey = "AIzaSyBr5b1jgr_XXyYv4Fz3EnuKjkHSwLcGqXg";
   const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=subject:${category}&startIndex=${startIndex}&maxResults=${resultsPerLoad}`
+    `https://www.googleapis.com/books/v1/volumes?q=subject:${category}&startIndex=${startIndex}&maxResults=${resultsPerLoad}&key=${apiKey}`
   );
   const data = await response.json();
   return data.items || [];
