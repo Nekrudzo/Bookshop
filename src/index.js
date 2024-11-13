@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // Слайдер
 
 const info = [
-  { slideImgDesktop: "../Bookshop/src/images/slider/BlackFridaySale.png" },
-  { slideImgDesktop: "../Bookshop/src/images/slider/OurCozyBooks.png" },
-  { slideImgDesktop: "../Bookshop/src/images/slider/TopTenBooks.png" },
+  { slideImgDesktop: "./src/images/slider/BlackFridaySale.png" },
+  { slideImgDesktop: "./src/images/slider/OurCozyBooks.png" },
+  { slideImgDesktop: "./src/images/slider/TopTenBooks.png" },
 ];
 
 // Текущий индекс для слайда
@@ -48,9 +48,9 @@ const setSlide = function (index) {
   slideImgDesktop.src = info[index].slideImgDesktop;
 
   pointList.children[currentIndex].children[0].src =
-    "../Bookshop/src/images/icons/icon_point_no-active.svg";
+    "./src/images/icons/icon_point_no-active.svg";
   pointList.children[index].children[0].src =
-    "../Bookshop/src/images/icons/icon_point_active.svg";
+    "./src/images/icons/icon_point_active.svg";
 
   currentIndex = index;
 };
@@ -87,7 +87,7 @@ let resultsPerLoad = 6; // Количество книг, загружаемых
 let currentCategory = ""; // Текущая выбранная категория
 let cardCounter = 0;
 
-const placeholderImage = "../Bookshop/src/images/noImage.jpg";
+const placeholderImage = "./src/images/noImage.jpg";
 
 // Функция для изменения количества загружаемых книг в зависимости от ширины экрана
 function updateResultsPerLoad() {
