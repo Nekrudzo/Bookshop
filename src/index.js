@@ -85,6 +85,7 @@ const loadMoreButton = document.getElementById("btn-load");
 let startIndex = 0; // Начальный индекс
 let resultsPerLoad = 6; // Количество книг, загружаемых при каждом нажатии кнопки
 let currentCategory = ""; // Текущая выбранная категория
+let cardCounter = 0;
 
 const placeholderImage = "../Bookshop/src/images/noImage.jpg";
 
@@ -116,6 +117,9 @@ function createBookCard(book) {
   const card = document.createElement("div");
   card.classList.add("card");
 
+  card.id = `book-card-${cardCounter}`;
+  cardCounter++;
+
   const title = book.volumeInfo.title;
   const authors = book.volumeInfo.authors
     ? book.volumeInfo.authors.join(", ")
@@ -131,6 +135,20 @@ function createBookCard(book) {
       ? `${book.saleInfo.listPrice.amount} ${book.saleInfo.listPrice.currencyCode}`
       : "";
 
+  const button = document.createElement("button");
+  button.className = "buy";
+  button.id = "buy";
+  button.dataset.bookId = card.id;
+
+  if (bookButtons.hasOwnProperty(card.id)) {
+    // Проверяем, есть ли эта кнопка в bookButtons
+    button.innerText = "In the list"; // Устанавливаем текст кнопки
+    button.setAttribute("data-in-cart", "true"); // Устанавливаем атрибут
+  } else {
+    button.innerText = "Buy now"; // Если кнопки нет в bookButtons, оставляем Buy now
+    button.setAttribute("data-in-cart", "false");
+  }
+
   card.innerHTML = `
         <img src="${cover}" alt="${title}" />
         <div class="card-content">
@@ -145,9 +163,11 @@ function createBookCard(book) {
         }
         <p class="description">${description}</p>
         ${price ? `<p class="price">${price}</p>` : ""}
-        <button class="buy" id="buy" data-in-cart="false">Buy now</button>
         </div>
     `;
+
+  card.querySelector(".card-content").appendChild(button);
+
   return card;
 }
 
@@ -189,39 +209,94 @@ document.querySelectorAll(".categories__item").forEach((item) => {
 });
 
 // Изначальная загрузка книг при старте
-currentCategory = "architecture"; // Устанавливаем начальную категорию
+currentCategory = "architecture";
 loadBooks();
 
 //Добавление книг в корзину
 
 let cartCount = 0;
+const bookButtons = {};
+
+// Инициализация состояния корзины из LocalStorage
+loadCartCount();
 
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("buy")) {
     const button = event.target;
+    const bookId = button.getAttribute("data-book-id");
     const inCart = button.getAttribute("data-in-cart") === "true";
+
+    console.log(
+      `Clicked: ${bookId}, Currently in cart: ${inCart}, Current cart count: ${cartCount}`
+    );
 
     if (inCart) {
       button.innerText = "Buy now";
       button.setAttribute("data-in-cart", "false");
-      cartCount -= 1; // Уменьшаем количество в корзине
+      cartCount -= 1;
+      delete bookButtons[bookId];
+      removeBookFromLocalStorage(bookId);
     } else {
       button.innerText = "In the list";
       button.setAttribute("data-in-cart", "true");
-      cartCount += 1; // Увеличиваем количество в корзине
+      cartCount += 1;
+      bookButtons[bookId] = true;
     }
 
+    console.log(`Updated cart count: ${cartCount}`);
+
     updateCartCount();
+    saveCartState();
   }
 });
+
+function removeBookFromLocalStorage(bookId) {
+  const savedBookButtons =
+    JSON.parse(localStorage.getItem("bookButtons")) || {};
+  delete savedBookButtons[bookId]; // Удаляем книгу из сохранённых кнопок
+  localStorage.setItem("bookButtons", JSON.stringify(savedBookButtons)); // Сохраняем обновлённое состояние
+}
 
 // Обновление количества товара в корзине
 function updateCartCount() {
   const cartCountElement = document.getElementById("carts-count");
+  cartCountElement.innerText = cartCount > 0 ? cartCount : "0";
+  localStorage.setItem("cartCount", cartCount); // Сохраняем в локальном хранилище
+
   if (cartCount > 0) {
     cartCountElement.innerText = cartCount;
   } else {
-    cartCountElement.innerText = "";
+    cartCountElement.innerText = "0";
     cartCountElement.classList.add("circle");
   }
 }
+
+function saveCartState() {
+  localStorage.setItem("cartCount", cartCount);
+  localStorage.setItem("bookButtons", JSON.stringify(bookButtons)); // Сохраняем состояние кнопок
+}
+
+function loadCartCount() {
+  // Извлекаем значение из localStorage и проверяем, является ли оно числом
+  let storedCartCount = localStorage.getItem("cartCount");
+  if (!isNaN(storedCartCount)) {
+    cartCount = parseInt(storedCartCount);
+  } else {
+    cartCount = 0;
+  }
+
+  const savedBookButtons =
+    JSON.parse(localStorage.getItem("bookButtons")) || {};
+
+  // Восстанавливаем состояние кнопок
+  Object.entries(savedBookButtons).forEach(([bookId, isInCart]) => {
+    if (isInCart) {
+      bookButtons[bookId] = true; // Обновляем объект bookButtons
+    }
+  });
+
+  updateCartCount();
+}
+
+console.log("Local Storage cartCount:", localStorage.getItem("cartCount"));
+console.log("Local Storage bookButtons:", localStorage.getItem("bookButtons"));
